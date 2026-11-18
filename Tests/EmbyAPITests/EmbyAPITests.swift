@@ -157,6 +157,47 @@ struct EmbyAPITests {
     }
 
     @Test
+    func `lists filter options in the user and library scope`() async throws {
+        let client = try makeClient(session: session) { request, _, _ in
+            #expect(request.method == .get)
+            #expect(request.headerFields[token] == "old-token")
+
+            let path = try #require(request.path)
+            let url = try #require(URLComponents(string: path))
+            for queryItem in [
+                URLQueryItem(name: "UserId", value: "12"),
+                URLQueryItem(name: "ParentId", value: "7"),
+                URLQueryItem(name: "IncludeItemTypes", value: "Movie,Series"),
+                URLQueryItem(name: "Recursive", value: "true"),
+            ] {
+                #expect(url.queryItems?.contains(queryItem) == true)
+            }
+
+            let names = ["/Genres": "Animation", "/OfficialRatings": "PG", "/Tags": "Family", "/Years": "2026"]
+            let name = try #require(names[url.path])
+            return json(#"{"Items":[{"Name":"\#(name)"}],"TotalRecordCount":1}"#)
+        }
+
+        let genres = try await client.api.getGenres(
+            query: .init(Recursive: true, ParentId: "7", IncludeItemTypes: "Movie,Series", UserId: "12")
+        ).ok.body.json
+        let ratings = try await client.api.getOfficialratings(
+            query: .init(Recursive: true, ParentId: "7", IncludeItemTypes: "Movie,Series", UserId: "12")
+        ).ok.body.json
+        let tags = try await client.api.getTags(
+            query: .init(Recursive: true, ParentId: "7", IncludeItemTypes: "Movie,Series", UserId: "12")
+        ).ok.body.json
+        let years = try await client.api.getYears(
+            query: .init(Recursive: true, ParentId: "7", IncludeItemTypes: "Movie,Series", UserId: "12")
+        ).ok.body.json
+
+        #expect(genres.Items?.first?.Name == "Animation")
+        #expect(ratings.Items?.first?.Name == "PG")
+        #expect(tags.Items?.first?.Name == "Family")
+        #expect(years.Items?.first?.Name == "2026")
+    }
+
+    @Test
     func `accepts image response with its actual content type`() async throws {
         let client = try makeClient(session: session) { request, _, _ in
             #expect(request.path?.hasPrefix("/Items/19/Images/Primary?") == true)

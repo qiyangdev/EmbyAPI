@@ -2444,6 +2444,36 @@
         },
         "type": "object"
       },
+      "QueryResult_UserLibrary.OfficialRatingItem": {
+        "properties": {
+          "Items": {
+            "items": {
+              "$ref": "#/components/schemas/UserLibrary.OfficialRatingItem"
+            },
+            "type": "array"
+          },
+          "TotalRecordCount": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "QueryResult_UserLibrary.TagItem": {
+        "properties": {
+          "Items": {
+            "items": {
+              "$ref": "#/components/schemas/UserLibrary.TagItem"
+            },
+            "type": "array"
+          },
+          "TotalRecordCount": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
       "QueueItem": {
         "properties": {
           "Id": {
@@ -3286,6 +3316,25 @@
         ],
         "type": "string"
       },
+      "UserLibrary.OfficialRatingItem": {
+        "properties": {
+          "Name": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "UserLibrary.TagItem": {
+        "properties": {
+          "Id": {
+            "type": "string"
+          },
+          "Name": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "UserPolicy": {
         "properties": {
           "AccessSchedules": {
@@ -3507,6 +3556,983 @@
   },
   "openapi": "3.0.1",
   "paths": {
+    "/Genres": {
+      "get": {
+        "description": "Requires authentication as user",
+        "operationId": "getGenres",
+        "parameters": [
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ArtistType",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxOfficialRating",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasThemeSong",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasThemeVideo",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasSubtitles",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasSpecialFeature",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasTrailer",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsSpecialSeason",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "AdjacentTo",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "StartItemId",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinIndexNumber",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinStartDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxStartDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinEndDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxEndDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinPlayers",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxPlayers",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ParentIndexNumber",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasParentalRating",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsHD",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsUnaired",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinCommunityRating",
+            "schema": {
+              "format": "double",
+              "nullable": true,
+              "type": "number"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinCriticRating",
+            "schema": {
+              "format": "double",
+              "nullable": true,
+              "type": "number"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "AiredDuringSeason",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinPremiereDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinDateLastSaved",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinDateLastSavedForUser",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxPremiereDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasOverview",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasImdbId",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasTmdbId",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasTvdbId",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ExcludeItemIds",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "StartIndex",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "Limit",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "Recursive",
+            "schema": {
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "SearchTerm",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "SortOrder",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ParentId",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Fields",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ExcludeItemTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "IncludeItemTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "AnyProviderIdEquals",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Filters",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsFavorite",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsMovie",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsSeries",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsFolder",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsNews",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsKids",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsSports",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsNew",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsPremiere",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsNewOrPremiere",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsRepeat",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ProjectToMedia",
+            "schema": {
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "MediaTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ImageTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "SortBy",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsPlayed",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Genres",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "OfficialRatings",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Tags",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ExcludeTags",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Years",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "EnableImages",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "EnableUserData",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ImageTypeLimit",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "EnableImageTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "Person",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "PersonIds",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "PersonTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Studios",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "StudioIds",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Artists",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ArtistIds",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Albums",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Ids",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "VideoTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Containers",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "AudioCodecs",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "AudioLayouts",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "VideoCodecs",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ExtendedVideoTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "SubtitleCodecs",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Path",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "UserId",
+            "schema": {
+              "format": "guid",
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinOfficialRating",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsLocked",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsPlaceHolder",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasOfficialRating",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "GroupItemsIntoCollections",
+            "schema": {
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "Is3D",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "SeriesStatus",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "NameStartsWithOrGreater",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ArtistStartsWithOrGreater",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "AlbumArtistStartsWithOrGreater",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "NameStartsWith",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "NameLessThan",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryResult_BaseItemDto"
+                }
+              }
+            },
+            "description": "Operation successful. Returning a QueryResult<BaseItemDto> object."
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "security": [
+          {
+            "apikeyauth": []
+          },
+          {
+            "embyauth": []
+          }
+        ],
+        "tags": [
+          "GenresService"
+        ],
+        "x-RequiredAuthentication": "Requires authentication as user"
+      }
+    },
     "/Items": {
       "get": {
         "description": "Requires authentication as user",
@@ -5023,6 +6049,983 @@
         ],
         "tags": [
           "MediaInfoService"
+        ],
+        "x-RequiredAuthentication": "Requires authentication as user"
+      }
+    },
+    "/OfficialRatings": {
+      "get": {
+        "description": "Requires authentication as user",
+        "operationId": "getOfficialratings",
+        "parameters": [
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ArtistType",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxOfficialRating",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasThemeSong",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasThemeVideo",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasSubtitles",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasSpecialFeature",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasTrailer",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsSpecialSeason",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "AdjacentTo",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "StartItemId",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinIndexNumber",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinStartDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxStartDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinEndDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxEndDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinPlayers",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxPlayers",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ParentIndexNumber",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasParentalRating",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsHD",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsUnaired",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinCommunityRating",
+            "schema": {
+              "format": "double",
+              "nullable": true,
+              "type": "number"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinCriticRating",
+            "schema": {
+              "format": "double",
+              "nullable": true,
+              "type": "number"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "AiredDuringSeason",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinPremiereDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinDateLastSaved",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinDateLastSavedForUser",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxPremiereDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasOverview",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasImdbId",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasTmdbId",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasTvdbId",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ExcludeItemIds",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "StartIndex",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "Limit",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "Recursive",
+            "schema": {
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "SearchTerm",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "SortOrder",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ParentId",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Fields",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ExcludeItemTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "IncludeItemTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "AnyProviderIdEquals",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Filters",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsFavorite",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsMovie",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsSeries",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsFolder",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsNews",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsKids",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsSports",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsNew",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsPremiere",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsNewOrPremiere",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsRepeat",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ProjectToMedia",
+            "schema": {
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "MediaTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ImageTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "SortBy",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsPlayed",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Genres",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "OfficialRatings",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Tags",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ExcludeTags",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Years",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "EnableImages",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "EnableUserData",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ImageTypeLimit",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "EnableImageTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "Person",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "PersonIds",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "PersonTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Studios",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "StudioIds",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Artists",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ArtistIds",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Albums",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Ids",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "VideoTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Containers",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "AudioCodecs",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "AudioLayouts",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "VideoCodecs",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ExtendedVideoTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "SubtitleCodecs",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Path",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "UserId",
+            "schema": {
+              "format": "guid",
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinOfficialRating",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsLocked",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsPlaceHolder",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasOfficialRating",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "GroupItemsIntoCollections",
+            "schema": {
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "Is3D",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "SeriesStatus",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "NameStartsWithOrGreater",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ArtistStartsWithOrGreater",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "AlbumArtistStartsWithOrGreater",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "NameStartsWith",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "NameLessThan",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryResult_UserLibrary.OfficialRatingItem"
+                }
+              }
+            },
+            "description": "Operation successful. Returning a QueryResult<OfficialRatingItem> object."
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "security": [
+          {
+            "apikeyauth": []
+          },
+          {
+            "embyauth": []
+          }
+        ],
+        "tags": [
+          "OfficialRatingService"
         ],
         "x-RequiredAuthentication": "Requires authentication as user"
       }
@@ -7257,6 +9260,983 @@
         ],
         "tags": [
           "SystemService"
+        ],
+        "x-RequiredAuthentication": "Requires authentication as user"
+      }
+    },
+    "/Tags": {
+      "get": {
+        "description": "Requires authentication as user",
+        "operationId": "getTags",
+        "parameters": [
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ArtistType",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxOfficialRating",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasThemeSong",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasThemeVideo",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasSubtitles",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasSpecialFeature",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasTrailer",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsSpecialSeason",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "AdjacentTo",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "StartItemId",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinIndexNumber",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinStartDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxStartDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinEndDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxEndDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinPlayers",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxPlayers",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ParentIndexNumber",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasParentalRating",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsHD",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsUnaired",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinCommunityRating",
+            "schema": {
+              "format": "double",
+              "nullable": true,
+              "type": "number"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinCriticRating",
+            "schema": {
+              "format": "double",
+              "nullable": true,
+              "type": "number"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "AiredDuringSeason",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinPremiereDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinDateLastSaved",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinDateLastSavedForUser",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxPremiereDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasOverview",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasImdbId",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasTmdbId",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasTvdbId",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ExcludeItemIds",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "StartIndex",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "Limit",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "Recursive",
+            "schema": {
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "SearchTerm",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "SortOrder",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ParentId",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Fields",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ExcludeItemTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "IncludeItemTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "AnyProviderIdEquals",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Filters",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsFavorite",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsMovie",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsSeries",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsFolder",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsNews",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsKids",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsSports",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsNew",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsPremiere",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsNewOrPremiere",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsRepeat",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ProjectToMedia",
+            "schema": {
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "MediaTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ImageTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "SortBy",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsPlayed",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Genres",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "OfficialRatings",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Tags",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ExcludeTags",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Years",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "EnableImages",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "EnableUserData",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ImageTypeLimit",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "EnableImageTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "Person",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "PersonIds",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "PersonTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Studios",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "StudioIds",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Artists",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ArtistIds",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Albums",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Ids",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "VideoTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Containers",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "AudioCodecs",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "AudioLayouts",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "VideoCodecs",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ExtendedVideoTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "SubtitleCodecs",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Path",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "UserId",
+            "schema": {
+              "format": "guid",
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinOfficialRating",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsLocked",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsPlaceHolder",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasOfficialRating",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "GroupItemsIntoCollections",
+            "schema": {
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "Is3D",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "SeriesStatus",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "NameStartsWithOrGreater",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ArtistStartsWithOrGreater",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "AlbumArtistStartsWithOrGreater",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "NameStartsWith",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "NameLessThan",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryResult_UserLibrary.TagItem"
+                }
+              }
+            },
+            "description": "Operation successful. Returning a QueryResult<TagItem> object."
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "security": [
+          {
+            "apikeyauth": []
+          },
+          {
+            "embyauth": []
+          }
+        ],
+        "tags": [
+          "TagService"
         ],
         "x-RequiredAuthentication": "Requires authentication as user"
       }
@@ -10199,6 +13179,983 @@
         ],
         "tags": [
           "VideoService"
+        ],
+        "x-RequiredAuthentication": "Requires authentication as user"
+      }
+    },
+    "/Years": {
+      "get": {
+        "description": "Requires authentication as user",
+        "operationId": "getYears",
+        "parameters": [
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ArtistType",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxOfficialRating",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasThemeSong",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasThemeVideo",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasSubtitles",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasSpecialFeature",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasTrailer",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsSpecialSeason",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "AdjacentTo",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "StartItemId",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinIndexNumber",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinStartDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxStartDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinEndDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxEndDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinPlayers",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxPlayers",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ParentIndexNumber",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasParentalRating",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsHD",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsUnaired",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinCommunityRating",
+            "schema": {
+              "format": "double",
+              "nullable": true,
+              "type": "number"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinCriticRating",
+            "schema": {
+              "format": "double",
+              "nullable": true,
+              "type": "number"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "AiredDuringSeason",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinPremiereDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinDateLastSaved",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinDateLastSavedForUser",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MaxPremiereDate",
+            "schema": {
+              "format": "date-time",
+              "nullable": true,
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasOverview",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasImdbId",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasTmdbId",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasTvdbId",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ExcludeItemIds",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "StartIndex",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "Limit",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "Recursive",
+            "schema": {
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "SearchTerm",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "SortOrder",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ParentId",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Fields",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ExcludeItemTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "IncludeItemTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "AnyProviderIdEquals",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Filters",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsFavorite",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsMovie",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsSeries",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsFolder",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsNews",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsKids",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsSports",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsNew",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsPremiere",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsNewOrPremiere",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsRepeat",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ProjectToMedia",
+            "schema": {
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "MediaTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ImageTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "SortBy",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsPlayed",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Genres",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "OfficialRatings",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Tags",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ExcludeTags",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Years",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "EnableImages",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "EnableUserData",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ImageTypeLimit",
+            "schema": {
+              "format": "int32",
+              "nullable": true,
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "EnableImageTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "Person",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "PersonIds",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "PersonTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Studios",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "StudioIds",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Artists",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ArtistIds",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Albums",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Ids",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "VideoTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Containers",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "AudioCodecs",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "AudioLayouts",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "VideoCodecs",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "ExtendedVideoTypes",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "SubtitleCodecs",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "Path",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "UserId",
+            "schema": {
+              "format": "guid",
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "MinOfficialRating",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsLocked",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "IsPlaceHolder",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "HasOfficialRating",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "GroupItemsIntoCollections",
+            "schema": {
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "Is3D",
+            "schema": {
+              "nullable": true,
+              "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "SeriesStatus",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "NameStartsWithOrGreater",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "ArtistStartsWithOrGreater",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "AlbumArtistStartsWithOrGreater",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "NameStartsWith",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": false,
+            "in": "query",
+            "name": "NameLessThan",
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryResult_UserLibrary.TagItem"
+                }
+              }
+            },
+            "description": "Operation successful. Returning a QueryResult<TagItem> object."
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "security": [
+          {
+            "apikeyauth": []
+          },
+          {
+            "embyauth": []
+          }
+        ],
+        "tags": [
+          "TagService"
         ],
         "x-RequiredAuthentication": "Requires authentication as user"
       }

@@ -1,13 +1,13 @@
 # EmbyAPI
 
-EmbyAPI is an unofficial Swift package for the Emby Server REST API. It provides typed operations for signing in, browsing libraries, fetching media and images, and reporting playback. The client is generated at build time from a pinned OpenAPI snapshot.
+EmbyAPI is an unofficial Swift package for the Emby Server REST API. It provides typed operations for signing in, browsing libraries, querying filter options, fetching media and images, and reporting playback. The client is generated at build time from a pinned OpenAPI snapshot.
 
 ## Installation
 
 Add `https://github.com/qiyangdev/EmbyAPI.git` as a package dependency in Xcode and link the `EmbyAPI` product. In a Swift package manifest, use:
 
 ```swift
-.package(url: "https://github.com/qiyangdev/EmbyAPI.git", from: "0.1.0")
+.package(url: "https://github.com/qiyangdev/EmbyAPI.git", from: "0.2.0")
 ```
 
 ## Usage
