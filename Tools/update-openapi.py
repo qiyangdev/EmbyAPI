@@ -15,6 +15,7 @@ OUTPUT = Path(__file__).resolve().parents[1] / "Sources/EmbyAPI/openapi.json"
 
 OPERATIONS = {
     "/System/Info/Public": ("get",),
+    "/Branding/Configuration": ("get",),
     "/Users/Public": ("get",),
     "/Users/AuthenticateByName": ("post",),
     "/Users/{Id}": ("get",),

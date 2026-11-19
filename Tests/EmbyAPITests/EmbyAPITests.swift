@@ -17,6 +17,19 @@ import Testing
 struct EmbyAPITests {
 
     @Test
+    func `reads the server login notice without a user session`() async throws {
+        let client = try makeClient { request, _, _ in
+            #expect(request.method == .get)
+            #expect(request.path == "/Branding/Configuration")
+            #expect(request.headerFields[token] == nil)
+            return json(#"{"LoginDisclaimer":"Welcome.<br/>Please sign in."}"#)
+        }
+
+        let branding = try await client.api.getBrandingConfiguration().ok.body.json
+        #expect(branding.LoginDisclaimer == "Welcome.<br/>Please sign in.")
+    }
+
+    @Test
     func `signs in with emby authorization and JSON credentials`() async throws {
         let client = try makeClient(session: session) { request, body, baseURL in
             #expect(baseURL.absoluteString == "https://example.com/proxy/emby")

@@ -850,6 +850,19 @@
         },
         "type": "object"
       },
+      "Branding.BrandingOptions": {
+        "properties": {
+          "CustomCss": {
+            "description": "The custom CSS.",
+            "type": "string"
+          },
+          "LoginDisclaimer": {
+            "description": "The login disclaimer.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "CatalogItem": {
         "type": "object"
       },
@@ -3556,6 +3569,51 @@
   },
   "openapi": "3.0.1",
   "paths": {
+    "/Branding/Configuration": {
+      "get": {
+        "description": "Requires authentication as user",
+        "operationId": "getBrandingConfiguration",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Branding.BrandingOptions"
+                }
+              }
+            },
+            "description": "Operation successful. Returning a BrandingOptions object."
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        },
+        "security": [
+          {
+            "apikeyauth": []
+          },
+          {
+            "embyauth": []
+          }
+        ],
+        "tags": [
+          "BrandingService"
+        ],
+        "x-RequiredAuthentication": "Requires authentication as user"
+      }
+    },
     "/Genres": {
       "get": {
         "description": "Requires authentication as user",
